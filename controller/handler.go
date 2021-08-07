@@ -1,9 +1,9 @@
-package handler
+package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/odysa/Gote/pkg/errno"
 	"net/http"
-	"server/pkg/errno"
 )
 
 type Response struct {
@@ -19,4 +19,13 @@ func SendResponse(c *gin.Context, err error, data interface{}) {
 		Message: message,
 		Data:    data,
 	})
+}
+
+func SendErrorResponse(c *gin.Context, err error) {
+	SendResponse(c, err, nil)
+	c.Abort()
+}
+
+func SendSuccessResponse(c *gin.Context, data interface{}) {
+	SendResponse(c, nil, data)
 }

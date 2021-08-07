@@ -20,7 +20,7 @@ func (c *Config) init() error {
 	}
 	viper.SetConfigType("yaml")
 	viper.AutomaticEnv()
-	viper.SetEnvPrefix("SERVER")
+	viper.SetEnvPrefix("GOTE")
 	replacer := strings.NewReplacer(".", "-")
 	viper.SetEnvKeyReplacer(replacer)
 

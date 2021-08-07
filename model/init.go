@@ -18,6 +18,10 @@ func (db *DataBase) Init() {
 	DB = &DataBase{Self: initDB()}
 }
 
+func (db *DataBase) Close() {
+	db.Close()
+}
+
 func initDB() *gorm.DB {
 	var db *gorm.DB
 
@@ -25,7 +29,7 @@ func initDB() *gorm.DB {
 		userName := viper.GetString("db.username")
 		password := viper.GetString("db.password")
 		address := viper.GetString("db.address")
-		dbName := viper.GetString("db.name")
+		dbName := viper.GetString("db.dbname")
 		db = openMysql(userName, password, address, dbName)
 	}
 

@@ -4,12 +4,13 @@ import (
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/odysa/Gote/config"
+	"github.com/odysa/Gote/model"
+	"github.com/odysa/Gote/router"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"log"
 	"net/http"
-	"server/config"
-	"server/router"
 	"time"
 )
 
@@ -26,8 +27,12 @@ func main() {
 
 	app := gin.New()
 
+	model.DB.Init()
+	defer model.DB.Close()
+
 	middleware := []gin.HandlerFunc{}
 
+	// load router
 	router.Load(app, middleware...)
 
 	healthCheck()
