@@ -29,3 +29,8 @@ func SendErrorResponse(c *gin.Context, err error) {
 func SendSuccessResponse(c *gin.Context, data interface{}) {
 	SendResponse(c, nil, data)
 }
+
+func PageNotFound(c *gin.Context) {
+	SendErrorResponse(c, errno.PageNotFound)
+	return
+}

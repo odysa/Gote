@@ -7,8 +7,8 @@ import (
 
 type ServiceListRequest struct {
 	Info     string `json:"info" form:"info" validate:""`
-	PageNo   int64  `json:"page_no" form:"page_no" validate:"required"`
-	PageSize int64  `json:"page_size" form:"page_size" validate:"required"`
+	PageNo   int    `json:"page_no" form:"page_no" validate:"required"`
+	PageSize int    `json:"page_size" form:"page_size" validate:"required"`
 }
 
 func (s *ServiceListRequest) BindParams(c *gin.Context) error {

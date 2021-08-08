@@ -6,7 +6,6 @@ import (
 	"github.com/odysa/Gote/controller"
 	"github.com/odysa/Gote/router/middlewares"
 	"log"
-	"net/http"
 )
 
 func Load(g *gin.Engine, wares ...gin.HandlerFunc) *gin.Engine {
@@ -17,9 +16,7 @@ func Load(g *gin.Engine, wares ...gin.HandlerFunc) *gin.Engine {
 	g.Use(middlewares.Options())
 	g.Use(middlewares.Secure())
 
-	g.NoRoute(func(c *gin.Context) {
-		c.String(http.StatusNotFound, "Invalid Address")
-	})
+	g.NoRoute(controller.PageNotFound)
 
 	store, err := sessions.NewRedisStore(10, "tcp", "localhost:6379", "", []byte("secret"))
 
@@ -48,6 +45,14 @@ func Load(g *gin.Engine, wares ...gin.HandlerFunc) *gin.Engine {
 		adminGroup.GET("/info", controller.AdminInfo)
 		adminGroup.GET("/logout", controller.AdminLogout)
 		adminGroup.POST("/change_password", controller.AdminChangePassword)
+	}
+	serviceGroup := g.Group("/service")
+	serviceGroup.Use(
+		sessions.Sessions("adminSession", store),
+		middlewares.SessionAuth(),
+	)
+	{
+		serviceGroup.GET("list", controller.ServiceList)
 	}
 	return g
 }
