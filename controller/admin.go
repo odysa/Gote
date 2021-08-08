@@ -44,6 +44,7 @@ func AdminLogout(c *gin.Context) {
 	SendSuccessResponse(c, "logout success")
 }
 
+// AdminChangePassword changes password of admin user
 func AdminChangePassword(c *gin.Context) {
 
 	params := &dto.AdminChangePWDRequest{}
