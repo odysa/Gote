@@ -30,7 +30,7 @@ func main() {
 	model.DB.Init()
 	defer model.DB.Close()
 
-	middleware := []gin.HandlerFunc{}
+	var middleware []gin.HandlerFunc
 
 	// load router
 	router.Load(app, middleware...)

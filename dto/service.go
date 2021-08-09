@@ -2,6 +2,7 @@ package dto
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/odysa/Gote/model"
 	"github.com/odysa/Gote/utils"
 )
 
@@ -24,6 +25,13 @@ type ServiceListItemResponse struct {
 	Qps         int64  `json:"qps"`
 	Qpd         int64  `json:"qpd"`
 	TotalNode   int64  `json:"total_node"`
+}
+
+func (s *ServiceListItemResponse) From(service *model.ServiceInfo) {
+	s.ID = service.ID
+	s.ServiceName = service.ServiceName
+	s.ServiceDesc = service.ServiceDesc
+	s.LoadType = service.LoadType
 }
 
 type ServiceListResponse struct {

@@ -13,6 +13,11 @@ func (s *ServiceInfo) TableName() string {
 	return "gateway_service_info"
 }
 
+func (s *ServiceInfo) GetById() (err error) {
+	err = DB.Self.Model(ServiceInfo{}).Where(&s).Find(&s).Error
+	return
+}
+
 func (s *ServiceInfo) PageList(info string, pageNo, pageSize int) (list []ServiceInfo, count int64, err error) {
 	offset := (pageNo - 1) * pageSize
 

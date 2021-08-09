@@ -19,14 +19,14 @@ func Load(g *gin.Engine, wares ...gin.HandlerFunc) *gin.Engine {
 	g.NoRoute(controller.PageNotFound)
 
 	store, err := sessions.NewRedisStore(10, "tcp", "localhost:6379", "", []byte("secret"))
+	if err != nil {
+		log.Fatalln("unable to connect to redis store")
+	}
 
 	// health check
 	hc := g.Group("/hc")
 	{
 		hc.GET("/health", controller.HealthCheck)
-	}
-	if err != nil {
-		log.Fatalln("unable to connect to redis store")
 	}
 
 	loginGroup := g.Group("/login")
